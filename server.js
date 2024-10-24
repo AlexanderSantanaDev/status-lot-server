@@ -1,7 +1,7 @@
-import express from "express";
-import axios from "axios";
-import { load } from "cheerio"; // Utilizando named imports para cheerio
-import cors from "cors"; // Importa cors
+const express = require("express");
+const axios = require("axios");
+const cheerio = require("cheerio"); // Cheerio con require, sin destructurar
+const cors = require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -14,7 +14,7 @@ app.get("/scrape-eurodreams", async (req, res) => {
     const { data } = await axios.get(
       "https://sorteoseurodreams.com/resultados/"
     );
-    const $ = load(data);
+    const $ = cheerio.load(data);
     const resultados = [];
 
     // Adaptación de los selectores para extraer la fecha y los números ganadores
